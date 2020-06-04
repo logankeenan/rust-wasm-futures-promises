@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Open the console for the results</p>
+<script type="module">
+    import init, {resolve_promise_in_rust, get_ip_address} from './pkg/rust_wasm_futures_promises.js';
+
+    async function run() {
+        await init();
+
+        let promise = new Promise(function (resolve) {
+            setTimeout(function () {
+                resolve("hello world")
+            }, 3000)
+        });
+        resolve_promise_in_rust(promise);
+
+        let ipAddress = await get_ip_address();
+        console.log('ipAddress:', ipAddress);
+    }
+
+    run();
+</script>
+</body>
+</html>
